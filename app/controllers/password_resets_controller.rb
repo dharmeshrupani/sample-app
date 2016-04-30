@@ -38,7 +38,7 @@ class PasswordResetsController < ApplicationController
 
 
 
-private
+	private
 
     def user_params
       params.require(:user).permit(:password, :password_confirmation)
@@ -65,6 +65,4 @@ private
         redirect_to new_password_reset_url
       end
     end
-
-  end
 end
