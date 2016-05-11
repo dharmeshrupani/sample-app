@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
                                    dependent:   :destroy
     has_many :following, through: :active_relationships,  source: :followed
     has_many :followers, through: :passive_relationships, source: :follower
+
+    has_reputation :votes, source: {reputation: :votes, of: :microposts}, aggregated_by: :sum  
+    has_many :evaluations, class_name: ReputationSystem::Evaluation, as: :source
                                   
 	  attr_accessor :remember_token, :activation_token, :reset_token
     before_save   :downcase_email
@@ -100,6 +103,11 @@ class User < ActiveRecord::Base
     # Returns true if the current user is following the other user.
     def following?(other_user)
       following.include?(other_user)
+    end
+
+    # Returns true if user has already liked the post
+    def voted_for?(micropost)
+      evaluations.where(target_type: micropost.class, target_id: micropost.id).present?
     end
 
 

@@ -19,6 +19,14 @@ class MicropostsController < ApplicationController
     redirect_to request.referrer || root_url
   end
 
+  def vote
+    value = params[:type] == "Like" ? 1: -1
+    @micropost = Micropost.find(params[:id])
+    @micropost.add_evaluation(:votes, value, current_user)
+    flash[:success] = "Like!"
+    redirect_to :back
+  end
+  
   private
 
     def micropost_params
