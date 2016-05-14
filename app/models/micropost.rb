@@ -8,6 +8,8 @@ class Micropost < ActiveRecord::Base
 
   has_reputation :votes, source: :user, aggregated_by: :sum
 
+  has_many :comments, dependent: :destroy
+
   private
 
     # Validates the size of an uploaded picture.

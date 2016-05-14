@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
 
     has_reputation :votes, source: {reputation: :votes, of: :microposts}, aggregated_by: :sum  
     has_many :evaluations, class_name: ReputationSystem::Evaluation, as: :source
+
+    has_many :comments, dependent: :destroy
                                   
 	  attr_accessor :remember_token, :activation_token, :reset_token
     before_save   :downcase_email

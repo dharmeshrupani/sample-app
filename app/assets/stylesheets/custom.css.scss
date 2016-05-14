@@ -221,11 +221,14 @@ input {
 .microposts {
   list-style: none;
   padding: 0;
+  border-top: 1px solid $gray-lighter;
+
   li {
     padding: 10px 0;
-    border-top: 1px solid #e8e8e8;
+    
   }
   .user {
+
     margin-top: 5em;
     padding-top: 0;
   }
@@ -236,6 +239,7 @@ input {
       display: block;
       padding: 5px 0;
     }
+
   }
   .timestamp {
     color: $gray-light;
@@ -247,7 +251,62 @@ input {
     margin-right: 10px;
     margin-top: 5px;
   }
+
+  .user-name {
+    font-weight: 500;
+    margin-right: 0.3em;
+    color: #125688;
+    font-size: 15px;
+  }
+
+  .comment {
+    margin-top: 7px;
+    margin-left: 60px;
+    .user-name {
+      
+      font-weight: 250;
+      margin-right: 0.3em;
+    }
+    .delete-comment {
+      
+      color: #515151;
+    }
+  }
+  margin-bottom: 7px;
+  padding-top: 24px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-bottom: 10px;
+  font-size: 15px;
+  line-height: 18px;
 }
+
+.comment_content {
+  margin-left: 60px;
+  margin-left: 60px;
+  padding-right: 100px;
+  padding-left: 10px;
+  font-size: 15px;
+  line-height: 9px;
+  border: medium none;
+  width: 50%;
+  color: #4B4F54;
+}
+
+.comment-like-form {
+  width: 90%;
+  padding-top: 12px;
+  padding-right: 100px;
+  margin-top: 0px;
+  margin-left: 45px;
+  margin-right: 24px;
+  min-height: 68px;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  
+}
+
 
 aside {
   textarea {
@@ -262,6 +321,10 @@ span.picture {
     border: 0;
   }
 }
+
+/* comment */
+
+
 
 /* footer */
 

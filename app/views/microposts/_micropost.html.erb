@@ -10,15 +10,43 @@
   <span class="timestamp">
     Posted <%= time_ago_in_words(micropost.created_at) %> ago.
   </span>
-  <span class="glyphicon glyphicon-thumbs-up"><%= pluralize micropost.reputation_for(:votes).to_i, "" %>
+  <p><span class="glyphicon glyphicon-thumbs-up"><%= pluralize micropost.reputation_for(:votes).to_i, "" %>
     <% if current_user && !current_user.voted_for?(micropost) %>
-      <%= link_to "Like", vote_micropost_path(micropost, type: "Like"), method: "post" %>
+      <%= link_to "Like |", vote_micropost_path(micropost, type: "Like"), method: "post" %>
      <% end %> 
-      
+    
+
     <% if current_user?(micropost.user) %>
-    <%= link_to "| Delete", micropost, method: :delete,
+    <%= link_to " Delete", micropost, method: :delete,
                                        data: { confirm: "You sure?" } %>
+                                       <span class="glyphicon glyphicon-trash" style="color: #a82424;"></span>
     <% end %>
-  </span>
+  </span><p>
+
+      <% if micropost.comments %>
+        <% micropost.comments.each do |comment| %>
+          <div class="comment">
+            <span  class="user-name">
+              <%= comment.user.name %> :
+            </span>
+            <span class="comment-content">
+              <%= comment.content %>
+            </span> 
+            <% if comment.user == current_user %>
+              <%= link_to micropost_comment_path(micropost, comment), method: :delete, data: { confirm: "Are you sure?" } do %>
+                <span class="glyphicon glyphicon-remove-sign" style="color: #a82424;"></span>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+      <div class="comment-like-form col-sm-11">
+        <%= form_for [micropost, micropost.comments.new] do |f| %>
+          <%= f.text_field :content, placeholder: 'Add a comment...' %>
+        <% end %>
+      </div>
   
 </li>
+
+
+  
