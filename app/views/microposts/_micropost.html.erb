@@ -12,17 +12,21 @@
   </span>
   <p><span class="glyphicon glyphicon-thumbs-up"><%= pluralize micropost.reputation_for(:votes).to_i, "" %>
     <% if current_user && !current_user.voted_for?(micropost) %>
-      <%= link_to "Like |", vote_micropost_path(micropost, type: "Like"), method: "post" %>
+      <%= link_to "Like", vote_micropost_path(micropost, type: "Like"), method: "post" %> |
      <% end %> 
     
 
     <% if current_user?(micropost.user) %>
+    <%= link_to "Edit", edit_micropost_path(micropost) %>
+    <span class="glyphicon glyphicon-edit"></span> |
     <%= link_to " Delete", micropost, method: :delete,
                                        data: { confirm: "You sure?" } %>
                                        <span class="glyphicon glyphicon-trash" style="color: #a82424;"></span>
     <% end %>
   </span><p>
 
+
+  
       <% if micropost.comments %>
         <% micropost.comments.each do |comment| %>
           <div class="comment">
@@ -32,6 +36,8 @@
             <span class="comment-content">
               <%= comment.content %>
             </span> 
+
+          
             <% if comment.user == current_user %>
               <%= link_to micropost_comment_path(micropost, comment), method: :delete, data: { confirm: "Are you sure?" } do %>
                 <span class="glyphicon glyphicon-remove-sign" style="color: #a82424;"></span>
